@@ -23,7 +23,7 @@ public class Interface_graphique {
 		// definition des choix de mode de conversion possibles :
 		String[] mode = {"Moodle vers Java", "Anki vers Java", "Java vers Moodle", "Java vers Anki"};
 		// on affiche une fenetre proposant le choix, et la reponse de l utilisateur est contenue dans l entier "choix" :
-		int choix = JOptionPane.showOptionDialog(null, "Quelle conversion souhaitez-vous effectuer ?","Sélection mode de conversion",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, mode, mode[2]);
+		int choix = JOptionPane.showOptionDialog(null, "Quelle conversion souhaitez-vous effectuer ?","Sélection mode de conversion",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, mode, mode[2]);
 		// si l utilisateur ferme la fenetre, on lui propose de quitter le programme :
 		if(choix == JOptionPane.CLOSED_OPTION) {
 			this.quitter("demande_mode_conversion");
@@ -33,7 +33,7 @@ public class Interface_graphique {
 		//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		// on affiche une fenetre donnant le choix ayant ete enregistre (et la reaction de l utilisateur est stockee dans l entier "option") :
-		int option = JOptionPane.showConfirmDialog(null, "Vous avez demandé une conversion " + mode[choix], "Sélection mode de conversion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int option = JOptionPane.showConfirmDialog(null, "Vous avez demandé une conversion " + mode[choix], "Sélection mode de conversion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		// si l utilisateur ferme la fenetre, on lui propose de quitter le programme :
 		if(option == JOptionPane.CLOSED_OPTION) {
 			this.quitter("demande_mode_conversion");
@@ -95,34 +95,36 @@ public class Interface_graphique {
 
 		// initialisation des variables qui prendront leurs vraies valeurs dans un test "if"
 		String emplacement_fichier = null;
-		int option = 0;
 
 		// si l utilisateur a clique sur OK...
 		if (retour == JFileChooser.APPROVE_OPTION) {
 			// on recupere l adresse du fichier selectionne :
 			emplacement_fichier = dialogue.getSelectedFile().getAbsolutePath();
-			// et on ouvre une fenetre de confirmation dans laquelle on donne le fichier precedemment selectionne (et la reaction de l utilisateur est stockee dans l entier "option") :
-			option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier à convertir : " + emplacement_fichier, "Sélection fichier source", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			
+			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// Deuxieme fenetre dans le cas 1 : confirmation du fichier source
+			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+			// on ouvre une fenetre de confirmation dans laquelle on donne le fichier precedemment selectionne (et la reaction de l utilisateur est stockee dans l entier "option") :
+			int option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier à convertir : " + emplacement_fichier, "Sélection fichier source", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if(option == JOptionPane.CANCEL_OPTION){
+				this.demande_fichier_source(extension_entree);
+			}
+			if(option == JOptionPane.CLOSED_OPTION) {
+				this.quitter("demande_fichier_source");
+			}
 		}
-		// si l utilisateur a clique sur annuler ...
+		// si l utilisateur a clique sur annuler (pour la premiere fenetre)
 		if (retour == JFileChooser.CANCEL_OPTION) {
-			// ... on ouvre une fenetre lui demandant de selectionner un fichier...
-			JOptionPane.showConfirmDialog(null, "Vous devez sélectionner un fichier à convertir.", "Sélection fichier source", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE);
-			// ... et on le renvoie a la selection du fichier source une fois qu il a lu :
+			
+			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// Deuxieme fenetre dans le cas 2 : aucun fichier source n a ete selectionne, on demande a l utilisateur de le faire
+			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			JOptionPane.showMessageDialog(null, "Vous devez sélectionner un fichier à convertir.\r\nSi vous souhaitez quitter, fermez la fenêtre suivante.", "Sélection fichier source", JOptionPane.PLAIN_MESSAGE);
 			this.demande_fichier_source(extension_entree);
-		}	
+		}
+		// si l utilisateur a ferme la premiere fenetre
 		if(retour == JOptionPane.CLOSED_OPTION) {
-			this.quitter("demande_fichier_source");
-		}
-
-		//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// Deuxieme fenetre : confirmation du fichier source
-		//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-		if(option == JOptionPane.NO_OPTION || option == JOptionPane.CANCEL_OPTION){
-			this.demande_fichier_source(extension_entree);
-		}
-		if(option == JOptionPane.CLOSED_OPTION) {
 			this.quitter("demande_fichier_source");
 		}
 		return emplacement_fichier;
@@ -144,7 +146,7 @@ public class Interface_graphique {
 			emplacement_fichier = dialogue.getSelectedFile().getAbsolutePath();
 		}
 		if (retour == JFileChooser.CANCEL_OPTION) {
-			System.out.println("Vous devez sélectionner un fichier source");
+			System.out.println("Vous devez sélectionner un emplacement de destination");
 		}
 		//on recupere l extension
 		String extension = null;
@@ -197,12 +199,9 @@ public class Interface_graphique {
 			try {
 				m.invoke(this);
 			} 
-			catch (IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
+			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 }
-
