@@ -1,0 +1,3 @@
+﻿# Forme des cartes : Pays;capitale;marqueur
+France;<b>Paris</b>;coucou
+Espagne;Madrid;coucou
