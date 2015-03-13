@@ -1,22 +1,12 @@
-import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
 
 public class Lancement {
 
@@ -51,7 +41,7 @@ public class Lancement {
 		case "0" :
 			try {
 				lancementMoodleJava(emplacement_source,emplacement_destination);
-				//TEST Quentin
+//TEST Quentin
 				String message = "Vous avec sauvegardez : \n\r";
 				Quizz quizzRecup = new Quizz();
 				message = message + "Quizz : \n\r\n\r";
@@ -83,15 +73,15 @@ public class Lancement {
 				jop3.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION);
 
 				//FIN TEST QUentin
-			}
+			} 
 			catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 			catch (SAXException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,8 +89,8 @@ public class Lancement {
 			break;
 		case "1" :
 			try {
-				lancementAnkiJava(emplacement_source,emplacement_destination);  
-				//TEST Quentin
+				lancementAnkiJava(emplacement_source,emplacement_destination);
+//TEST Quentin
 				String message = "Vous avec sauvegardez : \n\r";
 				Quizz quizzRecup = new Quizz();
 				message = message + "Quizz : \n\r\n\r";
@@ -133,7 +123,7 @@ public class Lancement {
 
 				//FIN TEST QUentin
 
-			}
+			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -142,7 +132,7 @@ public class Lancement {
 		case "2" :
 			lancementJavaMoodle(emplacement_source,emplacement_destination);
 			break;
-		case "3"     :
+		case "3"	 :
 			lancementJavaAnki(emplacement_source,emplacement_destination);
 			break;
 		default :
@@ -160,11 +150,11 @@ public class Lancement {
 	static void lancementMoodleJava(String emplacement_source, String emplacement_destination) throws ParserConfigurationException, SAXException, IOException{
 
 		//on crée et instancie le parseur
-		SAXParserFactory fabrique = SAXParserFactory.newInstance();
-		SAXParser parseur = fabrique.newSAXParser();
+		SAXParserFactory fabrique = SAXParserFactory.newInstance(); 
+		SAXParser parseur = fabrique.newSAXParser(); 
 
 		//fichier xml que l'on veut parser
-		File fichier = new File(emplacement_source);
+		File fichier = new File(emplacement_source); 
 
 		//creation du gestionnaire et parsing
 		GestionnaireMoodleJava gestionnaire = new GestionnaireMoodleJava();

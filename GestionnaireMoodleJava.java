@@ -1,8 +1,7 @@
 
 //gestion de la transformation moodle en txt(notre format) 
 
-import org.xml.sax.*; 
-import org.xml.sax.helpers.*;
+import org.xml.sax.*;
 
 public class GestionnaireMoodleJava extends GestionnaireLecture{ 
 	//résultats de notre parsing 
