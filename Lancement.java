@@ -41,6 +41,38 @@ public class Lancement {
 		case "0" :
 			try {
 				lancementMoodleJava(emplacement_source,emplacement_destination);
+//TEST Quentin
+				String message = "Vous avec sauvegardez : \n\r";
+				Quizz quizzRecup = new Quizz();
+				message = message + "Quizz : \n\r\n\r";
+				quizzRecup = quizzRecup.deserialization(emplacement_destination);
+				for(Question question : quizzRecup.getMesQuestions()) {
+					if(question!=null){
+						message = message + question.getEnonce() +
+								" ; "+
+								question.getReponse()+"\r\n";
+					}
+				}
+				message = message + "\n\r\n\r";
+				for(Deck deck : quizzRecup.getMesDecks()){
+					message = message + "\t" + deck.getName() + "\n\r\n\r";
+					for(Question question : deck.getMesQuestions()) {
+						if(question!=null){
+							message = message + "\t" + question.getEnonce()
+									+ " ; " +
+									question.getReponse() +"\r\n";
+						}
+					}
+					message = message + "\n\r\n\r";
+				}
+				String titre = "Sauvegarde dans le .ser";
+
+				JFileChooser dialogue = new JFileChooser();
+				dialogue.setDialogTitle("Sauvegarde dans le .ser\n\r");
+				JOptionPane jop3=new JOptionPane();
+				jop3.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION);
+
+				//FIN TEST QUentin
 			} 
 			catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
@@ -58,6 +90,39 @@ public class Lancement {
 		case "1" :
 			try {
 				lancementAnkiJava(emplacement_source,emplacement_destination);
+//TEST Quentin
+				String message = "Vous avec sauvegardez : \n\r";
+				Quizz quizzRecup = new Quizz();
+				message = message + "Quizz : \n\r\n\r";
+				quizzRecup = quizzRecup.deserialization(emplacement_destination);
+				for(Question question : quizzRecup.getMesQuestions()) {
+					if(question!=null){
+						message = message + question.getEnonce() +
+								" ; "+
+								question.getReponse()+"\r\n";
+					}
+				}
+				message = message + "\n\r\n\r";
+				for(Deck deck : quizzRecup.getMesDecks()){
+					message = message + "\t" + deck.getName() + "\n\r\n\r";
+					for(Question question : deck.getMesQuestions()) {
+						if(question!=null){
+							message = message + "\t" + question.getEnonce()
+									+ " ; " +
+									question.getReponse() +"\r\n";
+						}
+					}
+					message = message + "\n\r\n\r";
+				}
+				String titre = "Sauvegarde dans le .ser";
+
+				JFileChooser dialogue = new JFileChooser();
+				dialogue.setDialogTitle("Sauvegarde dans le .ser\n\r");
+				JOptionPane jop3=new JOptionPane();
+				jop3.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION);
+
+				//FIN TEST QUentin
+
 			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
