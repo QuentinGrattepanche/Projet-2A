@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.Vector;
 
+
 public class Question implements Serializable{ 
 	//identifiant de la question
 	private int id; 

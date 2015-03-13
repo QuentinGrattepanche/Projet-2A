@@ -1,8 +1,9 @@
+
 public abstract class GestionnaireEcriture extends Gestionnaire{
 	//nom du fichier final
-	public String nomFichierFinal;
+	//[changement heredite]public String nomFichierFinal;
 
-	public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;}
+	//[changement heredite]public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;}
 
 	public GestionnaireEcriture(){
 		super();
