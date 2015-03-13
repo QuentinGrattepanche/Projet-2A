@@ -1,12 +1,21 @@
 
+///package supprimertexte;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class GestionnaireAnkiJava extends GestionnaireLecture{
 	//résultats de notre parsing 
 	//[changement heredite]private Quizz quiz;  
-	private String[] typeDEspaceur =  {";",",",""};
+	private String TypeDEspaceur[] =  {";",",",""};
 	//[changement heredite]public String nomFichierFinal;
 	public static final String UTF8_BOM = "\u00EF\u00BB\u00BF";
 
@@ -35,9 +44,17 @@ public class GestionnaireAnkiJava extends GestionnaireLecture{
 			// le marqueur utilise dans la suite du fichier, parmi "," , "tabulation"
 			// et ";"
 			if (line.startsWith("#")) {
-				for(String unEspaceur : typeDEspaceur) {
-					if(line.contains(unEspaceur)) {
-						espaceur = unEspaceur;
+				if(line.contains(";")) {
+					espaceur = ";";
+				}
+				else {
+					if(line.contains(",")) {
+						espaceur = ",";
+					}
+					else {
+						if(line.contains("\t")) {
+							espaceur = "\t";
+						}
 					}
 				}
 			}
@@ -78,7 +95,6 @@ public class GestionnaireAnkiJava extends GestionnaireLecture{
 							unDeck.setName(unMarqueur);
 							quiz.addDeck(unDeck);
 							unDeck.addQuestion(LaQuestion);
-							quiz.addQuestion(LaQuestion);
 						}
 						else{}
 
