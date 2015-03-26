@@ -72,21 +72,17 @@ public class Lancement {
 
 				JFileChooser dialogue = new JFileChooser();
 				dialogue.setDialogTitle("Sauvegarde dans le .ser\n\r");
-				JOptionPane jop3=new JOptionPane();
-				jop3.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 				//FIN TEST QUentin
 			} 
 			catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -121,14 +117,12 @@ public class Lancement {
 
 				JFileChooser dialogue = new JFileChooser();
 				dialogue.setDialogTitle("Sauvegarde dans le .ser\n\r");
-				JOptionPane jop3=new JOptionPane();
-				jop3.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showConfirmDialog(null, message, titre, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 				//FIN TEST QUentin
 
 			} 
 			catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			};
 			break;

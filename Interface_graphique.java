@@ -106,7 +106,7 @@ public class Interface_graphique {
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// on ouvre une fenetre de confirmation dans laquelle on donne le fichier precedemment selectionne (et la reaction de l utilisateur est stockee dans l entier "option") :
-			int option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier à convertir : " + emplacement_fichier, "Sélection fichier source", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier à convertir : " + emplacement_fichier, "Sélection fichier source", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if(option == JOptionPane.CANCEL_OPTION){
 				this.demande_fichier_source(extension_entree);
 			}
@@ -161,7 +161,7 @@ public class Interface_graphique {
 			nom_fichier = nom_fichier+"."+extension_sortie; 
 			emplacement_fichier = emplacement_fichier+"."+extension_sortie;
 		}
-		int option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier cible : " + emplacement_fichier, "Sélection fichier destination", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int option = JOptionPane.showConfirmDialog(null, "Vous avez sélectionné le fichier cible : " + emplacement_fichier, "Sélection fichier destination", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(option == JOptionPane.NO_OPTION || 
 				option == JOptionPane.CANCEL_OPTION || 
 				option == JOptionPane.CLOSED_OPTION){
@@ -174,7 +174,7 @@ public class Interface_graphique {
 	public Boolean demande_fin_operation() {
 		Boolean retour = true;
 
-		int option = JOptionPane.showConfirmDialog(null, "Opération terminée.\r\nVoulez-vous effectuer une nouvelle conversion ?", "Fin opération", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int option = JOptionPane.showConfirmDialog(null, "Opération terminée.\r\nVoulez-vous effectuer une nouvelle conversion ?", "Fin opération", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(option == JOptionPane.NO_OPTION || 
 				option == JOptionPane.CANCEL_OPTION || 
 				option == JOptionPane.CLOSED_OPTION){
@@ -184,7 +184,7 @@ public class Interface_graphique {
 	}
 
 	public void quitter(String nom_methode) {
-		int option = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter ?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int option = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter ?", "Quitter", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(option == JOptionPane.YES_OPTION){
 			System.exit(0);
 		}

@@ -6,6 +6,8 @@ public class Question implements Serializable{
 	private int id; 
 	//nom, enonce, reponse de la question
 	private String nom, enonce, reponse; 
+	//type de question
+	private String type;
   
 	//indices et explications de la question
 	private Vector<String> liste_indices;
@@ -19,6 +21,7 @@ public class Question implements Serializable{
 		this.reponse = "";
 		this.liste_indices = new Vector<String>();
 		this.liste_explications = new Vector<String>();
+		this.type = "question_simple";
 	} 
   
 	//recuperer des info de la question
@@ -33,6 +36,7 @@ public class Question implements Serializable{
 	//changer les attributs de la question
 	public void setId(int id){this.id = id;} 
 	public void setNom(String nom){this.nom = nom;} 
+	public void setType(String type){this.type = type;}
 	public void setEnonce(String enonce){this.enonce = enonce;} 
 	public void setReponse(String reponse){this.reponse = reponse;}
 	public void setListe_Indices(Vector<String> liste_indices){this.liste_indices = liste_indices;} 

@@ -1,4 +1,3 @@
-
 //gestion de la transformation moodle en txt(notre format) 
 
 import org.xml.sax.*;
@@ -8,7 +7,7 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 	//[changement heredite]private Quizz quiz; 
 	private Question questionEnCoursDeTraitement; 
 	//flags nous indiquant la position du parseur 
-	private boolean inquiz, inQuestion, inNom, inEnonce,inText, inReponse;
+	private boolean inQuiz, inQuestion, inNom, inEnonce,inText, inReponse;
 	//buffer nous permettant de récupérer les données  
 	private StringBuffer buffer; 
 	//nom du fichier final
@@ -19,9 +18,9 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 		super(); 
 		//[changement heredite]this.nomFichierFinal = "";
 	} 
-	
+
 	//[changement heredite]public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;} 
-	
+
 	//méthode lancée lors d'une balise ouvrante
 	public void startElement(String uri, String localName, 
 			String qName, Attributes attributes) throws SAXException{
@@ -32,7 +31,7 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 		if(qName.equals("quiz")){ 
 			//on crée un quizz et on marque que l'on est en train de le traiter
 			quiz = new Quizz();  
-			inquiz = true; 
+			inQuiz = true; 
 			//[Test pour l'affichage]System.out.println("on réussi à passer la balise \"quiz\"");
 		}
 
@@ -47,14 +46,45 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 			//[Test pour l'affichage]System.out.println("on réussi à passer la balise \"question\"");
 			//[Test pour l'affichage]System.out.println(attributes.getValue("type"));
 
-			//Si cette question est du type Vrai Faux :
-			if(attributes.getValue("type").equals("truefalse")){
+			//On determine le type de question
+
+			switch (attributes.getValue("type")) {
+
+			case "multichoice" :
+				questionEnCoursDeTraitement = new QuestionMultiChoix();
+				inQuestion = true;
+				//[Test pour l'affichage]System.out.println("on crée une question à choix multiple");
+				break;
+				
+			case "truefalse" :
 				questionEnCoursDeTraitement = new QuestionVraiFaux();
 				inQuestion = true;
 				//[Test pour l'affichage]System.out.println("on crée une question Vrai Faux");
-			}
+				break;
+				
+			case "shortanswer" :
+				questionEnCoursDeTraitement = new QuestionSimple();
+				inQuestion = true;
+				//[Test pour l'affichage]System.out.println("on crée une question à réponse courte");
+				break;
+				
+			case "numerical" :
+				break;
+			
+			case "matching" :
+				break;
+				
+			case "cloze" :
+				break;
+				
+			case "essay" :
+				break;
+				
+			case "description" :
+				break;
+			}			
 
-			//Si on veut rajouter un identifiant (A REVOIR)
+			//TODO Si on veut rajouter un identifiant (A REVOIR)
 			//try{ 
 			//int id = Integer.parseInt(attributes.getValue("id")); 
 			//question.setId(id); }
@@ -97,7 +127,7 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 
 		//Si la balise fermante est "quiz" : on reinitialise le marqueur inquiz
 		if(qName.equals("quiz")){ 
-			inquiz = false; }
+			inQuiz = false; }
 
 		//Si la balise fermante est "question" et que l'on ne traitait pas de question : il ne se passe rien
 		else if(!qName.equals("question") && (inQuestion==false)){
@@ -159,16 +189,16 @@ public class GestionnaireMoodleJava extends GestionnaireLecture{
 	public void endDocument() throws SAXException { 
 		System.out.println("Fin du parsing"); 
 		System.out.println("Resultats du parsing"); 
-		
+
 
 		//sérialization
 		//SerializationDeserialization Test = new SerializationDeserialization();
 		//Test.serialization(quiz, nomFichierFinal);
-		
+
 		//ou 
 		quiz.serialization(nomFichierFinal);
 		//[Test pour l'affichage]System.out.println(quiz.getMesQuestions());
-		
+
 		//Deserialization (TEST)
 		//Test.testDeserialization();
 
