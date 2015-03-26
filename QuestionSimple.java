@@ -4,13 +4,14 @@ public class QuestionSimple extends Question{
 	private Vector<String> reponsesAlternatives;
 	public QuestionSimple(){
 		super();
-		this.setType("Multichoix");
+		this.setType("QuestionSimple");
 		this.reponsesAlternatives = new Vector<String>();
 	}
-	String ajouterReponseAlternative(String reponse) {
+	public String ajouterReponseAlternative(String reponse) {
 		reponsesAlternatives.add(reponse);
 		return reponse;
 	}
+	public Vector<String> getReponsesAlternatives() {return reponsesAlternatives;}
 }
 
 

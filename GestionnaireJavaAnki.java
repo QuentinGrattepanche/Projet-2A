@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.util.Vector;
 
 public class GestionnaireJavaAnki extends GestionnaireEcriture{
 	//nom du fichier final
@@ -11,18 +11,16 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 		super();
 		//[changement heredite]this.nomFichierFinal = "";
 	}
-
 	//[changement heredite]public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;} 
 
 	public void ecrireTexteAuFormat(Quizz quizz) {
-		//File texte_question = new File ("Quizz "+quizz.getName()+".txt");
 		File texte_question = new File (nomFichierFinal);
 
 		FileWriter fw = null;
 		try {
 			fw = new FileWriter (texte_question);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -34,6 +32,24 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 				///////////test
 				if(question!=null){
 					/////test
+					System.out.println(question.getType());
+					switch (question.getType()) {
+					case "Multichoix" :
+						break;
+
+					case "VraiFaux" :
+						System.out.println("hey!");
+						question.setEnonce("Vrai ou faux ?\r\n"+question.getEnonce());
+						break;
+
+					case "QuestionSimple" :
+						System.out.println("Oh...");
+						Vector<String> autres_reponses = ((QuestionSimple) question).getReponsesAlternatives();
+						question.setReponse("Réponse : "+question.getReponse()
+								+"\r\nAutres réponses acceptées : "
+								+autres_reponses.toString());
+						break;
+					}
 					fw.write (question.getEnonce());
 					fw.write (" ; ");
 					fw.write (question.getReponse()+"\r\n");
@@ -44,6 +60,21 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 
 					///////////test
 					if(question!=null){
+						switch (question.getType()) {
+						case "Multichoix" :
+							break;
+
+						case "VraiFaux" :
+							question.setEnonce("Vrai ou faux ? "+question.getEnonce());
+							break;
+
+						case "QuestionSimple" :
+							Vector<String> autres_reponses = ((QuestionSimple) question).getReponsesAlternatives();
+							question.setReponse("Réponse : "+question.getReponse()
+									+". Autres réponses acceptées : "
+									+autres_reponses.toString());
+							break;
+						}
 						/////test
 						fw.write (question.getEnonce());
 						fw.write (" ; ");
@@ -51,17 +82,11 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 					}
 				}
 			}
-
-
-
 			fw.close();
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("A écrit (pour Anki) dans le fichier "+nomFichierFinal);
-
 	}
-
 }

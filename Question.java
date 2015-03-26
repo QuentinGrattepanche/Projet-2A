@@ -26,6 +26,7 @@ public class Question implements Serializable{
   
 	//recuperer des info de la question
 	public int getId(){return id;} 
+	public String getType(){return type;}
 	public String getNom(){return nom;} 
 	public String getEnonce(){return enonce;} 
 	public String getReponse(){return reponse;}
