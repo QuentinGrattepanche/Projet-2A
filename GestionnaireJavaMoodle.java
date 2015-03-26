@@ -3,7 +3,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-
 public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 	//nom du fichier final
 	//[changement heredite]public String nomFichierFinal;
@@ -38,93 +37,37 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 		for(Question question : quizz.getMesQuestions()) {
 			///////////test
 			if(question!=null){
-				/////test
-				if(question.getReponse() == "false") {
-					try {
-						fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
-								+"<name>\r\n"
-								+"<text>"+question.getNom()+"</text>\r\n"
-								+"</name>\r\n"
-								+"<questiontext format=\"html\">\r\n"
-								+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
-								+"</questiontext>\r\n"
-								+"<generalfeedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</generalfeedback>\r\n"
-								+"<defaultgrade>1.0000000</defaultgrade>\r\n"
-								+"<penalty>1.0000000</penalty>\r\n"
-								+"<hidden>0</hidden>\r\n"
-								+"<answer fraction=\"0\" format=\"moodle_auto_format\">\r\n"
-								+"<text>true</text>\r\n"
-								+"<feedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</feedback>\r\n"
-								+"</answer>\r\n"
-								+"<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
-								+"<text>false</text>"
-								+"<feedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</feedback>\r\n"
-								+"</answer>\r\n"
-								+"</question>\r\n\r\n"
-
-								);
-
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-
-				else {
-					try{
-						fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
-								+"<name>\r\n"
-								+"<text>"+question.getNom()+"</text>\r\n"
-								+"</name>\r\n"
-								+"<questiontext format=\"html\">\r\n"
-								+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
-								+"</questiontext>\r\n"
-								+"<generalfeedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</generalfeedback>\r\n"
-								+"<defaultgrade>1.0000000</defaultgrade>\r\n"
-								+"<penalty></penalty>\r\n"
-								+"<hidden>0</hidden>\r\n"
-								+"<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
-								+"<text>true</text>\r\n"
-								+"<feedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</feedback>\r\n"
-								+"</answer>\r\n"
-								+"<answer fraction=\"0\" format=\"moodle_auto_format\">\r\n"
-								+"<text>false</text>"
-								+"<feedback format=\"html\">\r\n"
-								+"<text></text>\r\n"
-								+"</feedback>\r\n"
-								+"</answer>\r\n"
-								+"</question>\r\n\r\n"
-
-								);
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
+				switch (question.getType()) {
+				//	case "Multichoix" :
+				//		break;
+				case "QuestionSimple" :
+					ecrireQuestionSimple(question, fw);
+					break;
+				case "VraiFaux" :
+					ecrireQuestionVraiFaux(question, fw);
+					break;
 				}
 			}
 		}
-		
+
 		for(Deck deck : quizz.getMesDecks()) {
 			for(Question question : deck.getMesQuestions()) {
 				///////////test
 				if(question!=null){
-					ecrire_question_au_format_moodle(question, fw);
-					/////test
-					
+					switch (question.getType()) {
+					//	case "Multichoix" :
+					//		break;
+					case "QuestionSimple" :
+						ecrireQuestionSimple(question, fw);
+						break;
+					case "VraiFaux" :
+						ecrireQuestionVraiFaux(question, fw);
+						break;
+					}
 				}
 			}
 		}
-		
+
 		try {
 			fw.write("</quiz>");
 			fw.close();
@@ -134,82 +77,81 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 		}
 	}
 
-	private void ecrire_question_au_format_moodle(Question question, OutputStreamWriter fw) {
-		// TODO à compléter avec les autres types
-		
-		//Pour une question vrai ou faux :
-		if(question.getReponse() == "false") {
-			try {
-				fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
-						+"<name>\r\n"
-						+"<text>"+question.getNom()+"</text>\r\n"
-						+"</name>\r\n"
-						+"<questiontext format=\"html\">\r\n"
-						+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
-						+"</questiontext>\r\n"
-						+"<generalfeedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</generalfeedback>\r\n"
-						+"<defaultgrade>1.0000000</defaultgrade>\r\n"
-						+"<penalty>1.0000000</penalty>\r\n"
-						+"<hidden>0</hidden>\r\n"
-						+"<answer fraction=\"0\" format=\"moodle_auto_format\">\r\n"
-						+"<text>true</text>\r\n"
+	private void ecrireQuestionSimple(Question question, OutputStreamWriter fw) {
+		if(question.getReponse().equals("true")){	
+		};
+		try {
+			fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
+					+"<name>\r\n"
+					+"<text>"+question.getNom()+"</text>\r\n"
+					+"</name>\r\n"
+					+"<questiontext format=\"html\">\r\n"
+					+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
+					+"</questiontext>\r\n"
+					+"<generalfeedback format=\"html\">\r\n"
+					+"<text></text>\r\n"
+					+"</generalfeedback>\r\n"
+					+"<defaultgrade>1.0000000</defaultgrade>\r\n"
+					+"<penalty>1.0000000</penalty>\r\n"
+					+"<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
+					+"<text>"+question.getReponse()+"</text>\r\n"
+					+"<feedback format=\"html\">\r\n"
+					+"<text></text>\r\n"
+					+"</feedback>\r\n"
+					+"</answer>\r\n");
+
+			for(String reponse : ((QuestionSimple) question).getReponsesAlternatives()) {
+				fw.write("<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
+						+"<text>"+reponse+"</text>\r\n"
 						+"<feedback format=\"html\">\r\n"
 						+"<text></text>\r\n"
 						+"</feedback>\r\n"
-						+"</answer>\r\n"
-						+"<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
-						+"<text>false</text>"
-						+"<feedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</feedback>\r\n"
-						+"</answer>\r\n"
-						+"</question>\r\n\r\n"
-
-						);
-
+						+"</answer>\r\n");
 			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			fw.write("</question>\r\n\r\n");
 		}
-
-		else {
-			try{
-				fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
-						+"<name>\r\n"
-						+"<text>"+question.getNom()+"</text>\r\n"
-						+"</name>\r\n"
-						+"<questiontext format=\"html\">\r\n"
-						+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
-						+"</questiontext>\r\n"
-						+"<generalfeedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</generalfeedback>\r\n"
-						+"<defaultgrade>1.0000000</defaultgrade>\r\n"
-						+"<penalty></penalty>\r\n"
-						+"<hidden>0</hidden>\r\n"
-						+"<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
-						+"<text>true</text>\r\n"
-						+"<feedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</feedback>\r\n"
-						+"</answer>\r\n"
-						+"<answer fraction=\"0\" format=\"moodle_auto_format\">\r\n"
-						+"<text>false</text>"
-						+"<feedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</feedback>\r\n"
-						+"</answer>\r\n"
-						+"</question>\r\n\r\n"
-
-						);
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+		catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-	}   
-}
+	}
+
+	private void ecrireQuestionVraiFaux(Question question, OutputStreamWriter fw) {
+		int fraction_true = 0;
+		if(question.getReponse().equals("true")){
+			fraction_true = 100;			
+		}
+		int fraction_false = 100 - fraction_true;
+		try {
+			fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
+					+"<name>\r\n"
+					+"<text>"+question.getNom()+"</text>\r\n"
+					+"</name>\r\n"
+					+"<questiontext format=\"html\">\r\n"
+					+"<text><![CDATA[<p>"+question.getEnonce()+"</p>]]></text>\r\n"
+					+"</questiontext>\r\n"
+					+"<generalfeedback format=\"html\">\r\n"
+					+"<text></text>\r\n"
+					+"</generalfeedback>\r\n"
+					+"<defaultgrade>1.0000000</defaultgrade>\r\n"
+					+"<penalty>1.0000000</penalty>\r\n"
+					+"<answer fraction=\""+fraction_true+"\" format=\"moodle_auto_format\">\r\n"
+					+"<text>true</text>\r\n"
+					+"<feedback format=\"html\">\r\n"
+					+"<text></text>\r\n"
+					+"</feedback>\r\n"
+					+"</answer>\r\n"
+					+"<answer fraction=\""+fraction_false+"\" format=\"moodle_auto_format\">\r\n"
+					+"<text>false</text>"
+					+"<feedback format=\"html\">\r\n"
+					+"<text></text>\r\n"
+					+"</feedback>\r\n"
+					+"</answer>\r\n"
+					+"</question>\r\n\r\n"
+					);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}   
+
