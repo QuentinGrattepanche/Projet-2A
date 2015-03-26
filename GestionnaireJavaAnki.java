@@ -1,6 +1,9 @@
-import java.io.File;
-import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 public class GestionnaireJavaAnki extends GestionnaireEcriture{
@@ -14,16 +17,17 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 	//[changement heredite]public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;} 
 
 	public void ecrireTexteAuFormat(Quizz quizz) {
-		File texte_question = new File (nomFichierFinal);
-
-		FileWriter fw = null;
+				
+		BufferedWriter fw = null;
 		try {
-			fw = new FileWriter (texte_question);
+			fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nomFichierFinal), "UTF-8"));
 		} 
-		catch (IOException e) {
+		catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		try {
 			fw.write("# énoncé ; réponse\r\n");
 			System.out.println(quizz.getMesQuestions());
@@ -38,14 +42,12 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 						break;
 
 					case "VraiFaux" :
-						question.setEnonce("Vrai ou faux ?\r\n"+question.getEnonce());
+						question.setEnonce("Vrai ou faux ? "+question.getEnonce());
 						break;
 
 					case "QuestionSimple" :
 						Vector<String> autres_reponses = ((QuestionSimple) question).getReponsesAlternatives();
-						question.setReponse("Réponse : "+question.getReponse()
-								+"\r\nAutres réponses acceptées : "
-								+autres_reponses.toString());
+						question.setReponse("Réponse : "+question.getReponse()+". Autres réponses acceptées : "+autres_reponses.toString()+".");
 						break;
 					}
 					fw.write (question.getEnonce());
@@ -68,9 +70,7 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 
 						case "QuestionSimple" :
 							Vector<String> autres_reponses = ((QuestionSimple) question).getReponsesAlternatives();
-							question.setReponse("Réponse : "+question.getReponse()
-									+". Autres réponses acceptées : "
-									+autres_reponses.toString());
+							question.setReponse("Réponse : "+question.getReponse()+". Autres réponses acceptées : "+autres_reponses.toString()+".");
 							break;
 						}
 						/////test

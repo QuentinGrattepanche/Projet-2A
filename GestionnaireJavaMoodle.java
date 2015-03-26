@@ -1,7 +1,9 @@
-import java.io.File;
-import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 	//nom du fichier final
@@ -15,14 +17,15 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 	//[changement heredite]public void setNomFichierFinal(String nom){this.nomFichierFinal = nom;} 
 
 	public void ecrireTexteAuFormat(Quizz quizz) {
-		//File texte_question = new File ("Quizz "+quizz.getName()+".xml");
-		File texte_question = new File (nomFichierFinal);
 
-		FileWriter fw = null;
+		BufferedWriter fw = null;
 		try {
-			fw = new FileWriter (texte_question);
+			fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nomFichierFinal), "UTF-8"));
 		} 
-		catch (IOException e) {
+		catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -77,11 +80,11 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 		}
 	}
 
-	private void ecrireQuestionSimple(Question question, OutputStreamWriter fw) {
+	private void ecrireQuestionSimple(Question question, BufferedWriter fw) {
 		if(question.getReponse().equals("true")){	
 		};
 		try {
-			fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"truefalse\">\r\n"
+			fw.write("<!-- question: "+question.getId()+"  -->\r\n"+"<question type=\"shortanswer\">\r\n"
 					+"<name>\r\n"
 					+"<text>"+question.getNom()+"</text>\r\n"
 					+"</name>\r\n"
@@ -115,7 +118,7 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 		}
 	}
 
-	private void ecrireQuestionVraiFaux(Question question, OutputStreamWriter fw) {
+	private void ecrireQuestionVraiFaux(Question question, BufferedWriter fw) {
 		int fraction_true = 0;
 		if(question.getReponse().equals("true")){
 			fraction_true = 100;			

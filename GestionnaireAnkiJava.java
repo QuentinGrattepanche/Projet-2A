@@ -2,15 +2,8 @@
 ///package supprimertexte;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 public class GestionnaireAnkiJava extends GestionnaireLecture{
 	//résultats de notre parsing 
