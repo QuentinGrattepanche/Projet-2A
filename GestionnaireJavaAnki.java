@@ -38,12 +38,10 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 						break;
 
 					case "VraiFaux" :
-						System.out.println("hey!");
 						question.setEnonce("Vrai ou faux ?\r\n"+question.getEnonce());
 						break;
 
 					case "QuestionSimple" :
-						System.out.println("Oh...");
 						Vector<String> autres_reponses = ((QuestionSimple) question).getReponsesAlternatives();
 						question.setReponse("Réponse : "+question.getReponse()
 								+"\r\nAutres réponses acceptées : "
