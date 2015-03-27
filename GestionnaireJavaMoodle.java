@@ -49,6 +49,9 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 				case "VraiFaux" :
 					ecrireQuestionVraiFaux(question, fw);
 					break;
+				default :
+					ecrireQuestionSimple(question, fw);
+					break;
 				}
 			}
 		}
@@ -65,6 +68,9 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 						break;
 					case "VraiFaux" :
 						ecrireQuestionVraiFaux(question, fw);
+						break;
+					default :
+						ecrireQuestionSimple(question, fw);
 						break;
 					}
 				}
@@ -103,13 +109,15 @@ public class GestionnaireJavaMoodle extends GestionnaireEcriture{
 					+"</feedback>\r\n"
 					+"</answer>\r\n");
 
-			for(String reponse : ((QuestionSimple) question).getReponsesAlternatives()) {
-				fw.write("<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
-						+"<text>"+reponse+"</text>\r\n"
-						+"<feedback format=\"html\">\r\n"
-						+"<text></text>\r\n"
-						+"</feedback>\r\n"
-						+"</answer>\r\n");
+			if(question.getType().equals("QuestionSimple")) {
+				for(String reponse : ((QuestionSimple) question).getReponsesAlternatives()) {
+					fw.write("<answer fraction=\"100\" format=\"moodle_auto_format\">\r\n"
+							+"<text>"+reponse+"</text>\r\n"
+							+"<feedback format=\"html\">\r\n"
+							+"<text></text>\r\n"
+							+"</feedback>\r\n"
+							+"</answer>\r\n");
+				}
 			}
 			fw.write("</question>\r\n\r\n");
 		}

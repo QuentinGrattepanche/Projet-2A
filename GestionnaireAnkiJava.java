@@ -51,8 +51,8 @@ public class GestionnaireAnkiJava extends GestionnaireLecture{
 					}
 				}
 			}
-			else{
-				//Pour les lignesz suivantes, correspondant aux questions
+			else {
+				//Pour les lignes suivantes, correspondant aux questions
 				Question LaQuestion = new Question();
 
 				StringTokenizer separateur = new StringTokenizer(line,espaceur);
@@ -66,7 +66,7 @@ public class GestionnaireAnkiJava extends GestionnaireLecture{
 
 				//gestion des marqueurs :  creation des decks
 				String ensembleDesMarqueurs = separateur.nextToken();
-				if(ensembleDesMarqueurs != null){//s il existe un troisieme bloc pour les marqueurs
+				if(ensembleDesMarqueurs != null){// il existe un troisieme bloc pour les marqueurs
 					StringTokenizer separateurDeck = new StringTokenizer(ensembleDesMarqueurs," ");
 					String unMarqueur;
 					//[Test pour l'affichage]System.out.println(separateurDeck.nextToken());

@@ -76,7 +76,7 @@ public class GestionnaireJavaAnki extends GestionnaireEcriture{
 						/////test
 						fw.write (question.getEnonce());
 						fw.write (" ; ");
-						fw.write (question.getReponse()+"\r\n");
+						fw.write (question.getReponse()+" ; "+deck.getName()+"\r\n");
 					}
 				}
 			}
